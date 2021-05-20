@@ -44,17 +44,32 @@ body{
 	border-radius:20px;
 	padding:3px 0 0 4px;
 }
-.select:before{
-	content:"1 2 3";
+.onw{
 	position:absolute;
 	top:85px;
+	right:445px;
 }
 .bal{
-	line-height:20px;
-	width:14px;
-	height:14px;
+	display:block;
+	width:10px;
+	height:10px;
+	background:var(--dbtn);
 	border-radius:50%;
-	background:var(--dbtn)
+	float:left;
+	margin:2px 5px 10px 2px;
+}
+
+.hid{
+	width:0;
+	height:0;
+	position:absolute;
+	
+}
+input[id='two']:checked ~ .res, input[id='two']:checked ~ .btns{
+	--res:#ffffff
+}
+input[id="three"]:checked ~ .res, input[id="three"]:checked ~ .btns{
+	--res:#00ea;
 }
 .clearfix{
 	clear:both;
@@ -128,4 +143,3 @@ body{
 .equal:hover{
 	background:#d44120dd !important
 }
-/**/

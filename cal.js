@@ -1,4 +1,23 @@
+function changeColor(variable){
+	var myCheckedOne = document.getElementById('one').checked,
+		myCheckedTwo = document.getElementById('two').checked,
+		mySelect =  document.getElementById('select'),
+		myBody = document.getElementsByTagName("BODY")[0];
+	
+	if(variable == 'one'){
+		myBody.style.background = '#394666';
+		mySelect.style.background = '#181f32'
+		
+	}else if(variable == 'two'){
+		myBody.style.background = '#333';
+		mySelect.style.background = '#fff'
+	}else{
+		myBody.style.background = '#e00a';
+		mySelect.style.background = '#00ea'
+	}
+}
 
+/**/
 
 class Calculator{
 	constructor(previousElement, currentElement, resElement){
@@ -50,7 +69,6 @@ class Calculator{
 			default:
 			return
 		}
-		this.computation = computation
 		this.current = computation
 		this.operation = undefined
 		this.previous = ''
@@ -124,3 +142,4 @@ delButton.addEventListener('click', button => {
 	calculator.delete()
 	calculator.update()
 })
+
