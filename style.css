@@ -45,9 +45,10 @@ body{
 	padding:3px 0 0 4px;
 }
 .onw{
-	position:absolute;
-	top:85px;
-	right:445px;
+	margin-top:-20px;
+	margin-RIGHT:5PX;
+	float:right;
+
 }
 .bal{
 	display:block;
@@ -57,6 +58,7 @@ body{
 	border-radius:50%;
 	float:left;
 	margin:2px 5px 10px 2px;
+	cursor:pointer
 }
 
 .hid{
@@ -66,7 +68,9 @@ body{
 	
 }
 input[id='two']:checked ~ .res, input[id='two']:checked ~ .btns{
-	--res:#ffffff
+	--res:#ffffff;
+	--text:#4d4d4f;
+	
 }
 input[id="three"]:checked ~ .res, input[id="three"]:checked ~ .btns{
 	--res:#00ea;
@@ -84,6 +88,7 @@ input[id="three"]:checked ~ .res, input[id="three"]:checked ~ .btns{
 	line-height:85px;
 	direction:rtl;
 	padding-right:20px;
+	color:var(--text);
 }
 .res .previous{
 	font-size:18px;

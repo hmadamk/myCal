@@ -23,10 +23,12 @@ class Calculator{
 	constructor(previousElement, currentElement, resElement){
 		this.previousElement = previousElement
 		this.currentElement = currentElement
+		this.resElement = resElement
 		this.clear()
 
 	}
 	clear(){
+		this.res = ''
 		this.current = ''
 		this.previous = ''
 		this.operation = undefined
@@ -35,20 +37,60 @@ class Calculator{
 		this.current = this.current.toString().slice(0, -1)
 	}
 	append(number){
+		if(this.current > 10000000000)return
 		if (number === '.' && this.current.includes('.'))return
 		this.current = this.current.toString() + number.toString()
+		console.log(this.current)
 		
 	}
 	chooseop(operation){
+		if(this.current === '' && this.resElement.innerText != ''){
+			this.operation = operation
+			this.previous = this.res
+		}else{
 		if(this.current === '')return
 		if(this.previous !== ''){
-			this.compute()
+			this.compute2()
 		}
 		this.operation = operation
 		this.previous = this.current
 		this.current = ''
+		}
 	}
 	compute(){
+		let computation
+		const prev = parseFloat(this.previous)
+		const curr = parseFloat(this.current)
+		if(isNaN(prev) || isNaN(curr))return
+		switch (this.operation){
+			case '+':
+			computation = prev + curr
+			break
+			case '-':
+			computation = prev - curr
+			break
+			case '×':
+			computation = prev * curr
+			break
+			case '/':
+			computation = prev / curr
+			break
+			default:
+			return
+		}
+		this.current = ''
+		this.res = computation
+		this.operation = undefined
+		this.previous = ''
+		if(this.res > 10000000000){this.resElement.innerText = undefined 
+		this.res = 0}else{
+		this.resElement.innerText = this.getNumber(this.res)}
+		if(this.resElement != null){
+			this.previousElement.innerText =  ''
+			this.currentElement.innerText =  ''
+		}
+	}
+	compute2(){
 		let computation
 		const prev = parseFloat(this.previous)
 		const curr = parseFloat(this.current)
@@ -72,7 +114,6 @@ class Calculator{
 		this.current = computation
 		this.operation = undefined
 		this.previous = ''
-		console.log(this.computation)
 	}
 	getNumber(number){
 		const stringNumber = number.toString()
@@ -94,13 +135,18 @@ class Calculator{
 		
 	}
 	update(){
-		this.currentElement.innerText = this.getNumber(this.current)
 		if(this.operation != null){
 		this.previousElement.innerText = `${this.operation} ${this.getNumber(this.previous)}`
 		}else{
 			this.previousElement.innerText = ''
 		}
+		console.log()
+		if(this.resElement != ''){
+			this.resElement.innerText =  ''
+		}
+		this.currentElement.innerText = this.getNumber(this.current)
 	}
+
 }
 
 
@@ -114,7 +160,7 @@ const previousElement = document.querySelector('[data-previous]')
 const currentElement = document.querySelector('[data-current]')
 const resElement = document.querySelector('[data-res]')
 
-const calculator = new Calculator(previousElement, currentElement)
+const calculator = new Calculator(previousElement, currentElement, resElement)
 
 numberButtons.forEach(button => {
 	button.addEventListener('click', () => {
@@ -131,8 +177,8 @@ operationButtons.forEach(button => {
 })
 
 equalButton.addEventListener('click', button => {
-	calculator.compute()
 	calculator.update()
+	calculator.compute()
 })
 resetButton.addEventListener('click', button => {
 	calculator.clear()
@@ -143,3 +189,4 @@ delButton.addEventListener('click', button => {
 	calculator.update()
 })
 
+currentElement.innerText = 'Type'
